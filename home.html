@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>京东首页</title>
+		
+		<style>
+			*{
+				background-color: rgb(245,245,245);
+				margin: 0;
+				padding: 0;
+			}
+			.nav{
+				box-sizing: border-box;
+				background-color: rgb(227,228,229);
+				/* background-color: red; */
+				height: 35px;
+				padding-left: 10%;
+				padding-right: 10%;
+				line-height: 35px;
+				display: flex;
+				justify-content: space-between;
+				font-size: 13px;
+				color: rgb(153,153,153);
+				/* position: absolute; */
+				
+			}
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			.nav-left{
+				background-color: rgb(227,228,229);
+				display: flex;
+				margin-left: ;
+			}
+			.nav-left-1{
+				background-color: rgb(227,228,229);
+				margin-left: 10px;
+			}
+			.nav-right{
+				display: flex;
+				background-color: rgb(227,228,229);
+				z-index: 999;
+				
+				
+			}
+			
+			li{
+				background-color: rgb(227,228,229);
+				list-style: none;
+				margin-left: 10px;
+			}
+			
+			
+			li:hover{
+				color: green;
+			}
+			
+			.li:after{
+				content: "";
+				font-size: 0;
+				padding: 11px 1px 5px;
+				margin-left: 10px;
+				border-left: 2px solid rgb(204,204,204);
+			
+			}
+			
+			ul{
+				background-color: rgb(227,228,229);
+				list-style: none;
+				display: flex;				
+				margin: 0;
+			}
+			
+		
+			.nav-right ul{
+				margin: 0px;
+				padding: 0px;				
+			}
+			.nav-right ul li{
+				/* position: relative; */
+				float: left;
+			
+			}
+			.nav-right ul li ul{
+				width: 80px;
+				height: 35px;
+				background-color: white;
+				display: none;
+				
+			}
+			.nav-right ul li:hover ul{
+				display: block;
+			}
+			.nav-right ul li ul{
+				color: rgb(153,153,153);
+			}
+			
+			.second li{
+				width: 70px;
+				height: 35px;
+				background-color: white;
+				z-index: 999;
+			}
+			
+			.second-btn{
+				width: 250px;
+				height: 200px;
+				background-color: white;
+				
+			}
+					
+			.xl{
+				width: 15px;
+				height: 10px;
+			}
+			.xj{
+				position: absolute;
+				left: 140px;
+				width: 20px;
+				height: 30px;
+				
+			}
+			.main-top{
+				position: relative;
+				display: flex;
+				height: 180px;
+				
+			}
+			
+			.main-bg{
+				
+				width: 240px;
+				height: 150px;
+		
+			}
+			.main-search{
+				width: 340px;
+				height: 35px;
+				color: black;
+				font-size: 15px;
+				padding-left: 5px;
+				background-color: white;
+				border: none;
+				outline: none;
+				
+			}
+			.main-search-main{
+				display: flex;
+				top: 28px;
+				position: relative;
+				width: 800px;
+				height: 38px;
+			}
+			.main-bg2{
+				width: 50px;
+				height: 35px;
+			}
+
+			.main-right-contnt{
+				position: relative;
+				height: 33px;
+				width: 155px;				
+				padding-left: 40px;
+				line-height: 35px;
+				background-color: white;
+				font-size: 13px;
+				color: rgb(243,2,19);
+				
+			}
+			
+			.main-car{
+				position: absolute;
+				width: 30px;
+				padding-left: 12px;
+				padding-top: 4px;
+				background-color: white;
+
+			}
+			.main-content-mid{
+				margin-top: 40px;			
+				width: 400px;
+				height: 20px;
+				display: flex;
+			}
+			.main-content-mid div{
+				margin-right: 10px;
+				color: rgb(153,153,153);
+				font-size: 12px;
+			}
+			.main-central{
+				position: relative;	
+				height: 600px;
+				top: -28px;
+				display: flex;
+				
+			}
+			.main-central-left{
+				margin-left: 152px;
+				width: 239px;
+				height: 470px;
+				background-color: white;
+			}
+			
+			.lunbo{
+				width: 700px;
+				height: 470px;
+		
+			}
+			.content{
+				width: 700px;
+				height: 470px;
+				margin: auto;
+				position: relative;
+		
+			}
+			#item{
+				width: 100%;
+				height: 100%;
+				background-color: rgb(245,245,245);
+				
+			}
+			.item{
+				position: absolute;
+				opacity: 0;
+				transition: all 1s;
+				
+			}
+			.item.active{
+				opacity:1;
+			}
+			img{
+				width: 100%;
+			}
+			#btn-left{
+				margin-left: 10px;
+				width: 30px;
+				height: 69px;
+				font-size: 30px;
+				color: white;
+				background-color:rgba(0,0,0,0.4);
+				line-height: 69px;
+				padding-left:5px;
+				z-index: 10;/*始终显示在图片的上层*/
+				position: absolute;
+				left: 0;
+				top: 40%;
+				transform: translateY(-60%);/*使按钮向上偏移居中对齐*/
+				cursor: pointer;
+				opacity: 0;/*平时隐藏*/
+			}
+			.lunbo:hover #btn-left{
+				/*鼠标滑入，显示图标*/
+				opacity: 1;
+			}
+			
+			#btn-right{
+				width: 26px;
+				height: 69px;
+				font-size: 30px;
+				color: white;
+				background-color:rgba(0,0,0,0.4);
+				line-height: 69px;
+				padding-left: 5px;
+				z-index: 10;
+				position: absolute;
+				right: 0;
+				top: 40%;
+				cursor: pointer;
+				opacity: 0;
+				transform: translateY(-60%);
+			}
+			.lunbo:hover #btn-right{
+				opacity: 1;
+			}
+			#circle{
+				height: 20px;
+				display: flex;
+				position: absolute;
+				bottom: 100px;
+				margin-left: 50%;		
+			}
+			.circle{
+				width: 10px;
+				height: 10px;
+				border-radius: 10px;
+				background: rgba(0,0,0,0.4);
+				cursor: pointer;
+				margin: 5px;
+				
+			}
+			.white{
+				background-color: #FFFFFF;
+			}
+					
+			.main-central-right{
+				width: 230px;
+				height: 470px;
+				margin-left: 10px;
+				background-color: white;
+			}
+			
+		
+		</style>
+		
+		
+	</head>
+	<body>
+		<div class="nav">
+			<div class="nav-left">
+				<div class="nav-left-1"><img src="./img/xj.png" alt="" class="xj"/>四川</div>
+				<div class="nav-left-1">切换至企业版</div>
+			</div>
+			
+			<div class="nav-right">
+				<ul class="first">
+					<li>你好，<span style="color: red; background-color: rgb(227,228,229);">请登录</span></li>
+					<li class="li">免费注册</li>
+					<li class="li">我的订单</li>
+					<li>我的京东<img src="./img/xl.png" alt="" class="xl"/><span class="li" style="background-color: rgb(227,228,229);""></span>
+						<ul class="second">
+							<div class="second-btn">
+								<li>待处理订单</li>
+								<li>返修退换货</li>
+								<li>降价商品</li>
+								<li>我的问答</li>
+								<li>我的关注</li>
+								<li>我的京豆</li>
+								<li>我的白条</li>
+								<li>我的优惠券</li>
+								<li>我的理财</li>
+							</div>							
+						</ul>
+					</li>
+					<li class="li">京东会员</li>
+					<li>企业采购<img src="./img/xl.png" alt="" class="xl"/><span class="li" style="background-color: rgb(227,228,229);""></span>
+						<ul class="second">
+							<div class="second-btn">
+								<li>企业购</li>
+								<li>公共采购</li>
+								<li>工业品</li>
+								<li>商用场景馆</li>
+								<li>礼品卡</li>
+								<li>微信企业购</li>
+								<li>工品优选</li>
+								<li>京东锦礼</li>
+								<li>大中型客户采购</li>
+								        
+							</div>
+						</ul>
+					</li>
+					<li class="li">客户服务<img src="./img/xl.png" alt="" class="xl"/></li>
+					<li class="li">网站导航<img src="./img/xl.png" alt="" class="xl"/></li>
+					<li>手机京东</li>
+					<li>网站无障碍</li>
+					
+				</ul>
+			</div>
+		</div>
+		<div class="main-top">
+			<div style="width: 10%;"></div>
+			<img src="./img/logo.png" alt="" class="main-bg"/>
+			<div style="width: 8%;"></div>
+			<div>
+				<div class="main-search-main">
+					<input type="text" class="main-search"/>
+					<img src="./img/search.png" alt="" class="main-bg2"/>
+					<div style="width: 2.5%;"></div>				
+					<div class="main-right-contnt">我的购物车<img src="./img/car.png" alt="" class="main-car"/></div>			
+				</div>	
+				<div class="main-content-mid" style="font-size: 10px;">
+					<div>平板电脑</div>
+					<div>爆款耳机</div>
+					<div>手机</div>
+					<div>数据线</div>
+					<div>年货节</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="main-central">
+			<div class="main-central-left"></div>						
+			<div class="lunbo">
+				<div class="content">
+					<ul id="item">
+						<li class="item">
+							<a href="#"><img src="./img/img1.png" ></a>
+						</li>
+						<li class="item">
+							<a href="#"><img src="./img/img2.png" ></a>
+						</li>
+						<li class="item">
+							<a href="#"><img src="./img/img3.png" ></a>
+						</li>					
+					</ul>
+					<div id="btn-left"><</div>
+					<div id="btn-right">></div>
+					<ul id="circle">					
+						<li class="circle"></li>
+						<li class="circle"></li>
+						<li class="circle"></li>				
+					</ul>
+				</div>
+			</div>			
+			
+			<div class="main-central-right">
+				
+				
+				
+				
+			</div>
+		</div>
+		
+		
+		
+		
+	</body>
+	<script>
+		window.onload=function(){
+			var items=document.getElementsByClassName("item");
+			var circles=document.getElementsByClassName("circle");
+			var leftBtn=document.getElementById("btn-left");
+			var rightBtn=document.getElementById("btn-right");
+			var content=document.querySelector('.content');
+			var index=0;
+			var timer=null;
+			
+			//清除class
+			var clearclass=function(){
+				for(let i=0;i<items.length;i++){
+					items[i].className="item";
+					circles[i].className="circle";
+					circles[i].setAttribute("num",i);
+				}
+			}
+			/*只显示一个class*/
+			function move(){
+				clearclass();
+				items[index].className="item active";
+				circles[index].className="circle white";
+			}
+			//点击右边按钮切换下一张图片
+			rightBtn.onclick=function(){
+				if(index<items.length-1){
+					index++;
+				}
+				else{
+					index=0;
+				}
+				move();
+			}
+			//点击左边按钮切换上一张图片
+			leftBtn.onclick=function(){
+				if(index<items.length){
+					index--;
+				}
+				else{
+					index=items.length-1;
+				}
+				move();
+			}
+			//开始定时器，点击右边按钮，实现轮播
+			timer=setInterval(function(){
+				rightBtn.onclick();
+			},1500)
+			//点击圆点时，跳转到对应图片
+			for(var i=0;i<circles.length;i++){
+				circles[i].addEventListener("click",function(){
+					var point_index=this.getAttribute("num");
+					index=point_index;
+					move();
+				})
+			
+			}
+			//鼠标移入清除定时器，并开启一个三秒的定时器，使慢慢转动
+			content.onmouseover=function(){
+				clearInterval(timer);
+					timer=setInterval(function(){
+						rightBtn.onclick();
+					},3000)
+			}
+			//鼠标移出又开启定时器
+			content.onmouseleave=function(){
+				clearInterval(timer);
+				timer=setInterval(function(){
+					rightBtn.onclick();
+				},1500)
+			}
+			}
+		
+		
+	</script>
+	
+</html>
