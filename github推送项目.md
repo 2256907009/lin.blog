@@ -8,7 +8,9 @@
 
 ##### git branch 可以查看所有的分支（前面带有*表示当前分支）
 
-##### git checkout -d text 使用-d命令可以新建分支并切换到新建分支
+##### git checkout -b text 使用-d命令可以新建分支并切换到新建分支
+
+##### git branch 新建分支名  可以新建分支
 
 ##### git checkout text 只进行切换分支
 
