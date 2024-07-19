@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>钢琴模拟</title>
+
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+
+
+			.container {
+				width: 80vw;
+				height: 450px;
+				background: black;
+				margin: auto;
+				border-radius: 5%;
+				position: relative;
+
+			}
+
+			.main {
+				display: flex;
+				width: 100%;
+				height: 20%;
+			}
+
+			.name {
+				color: rgb(169, 166, 167);
+				font-size: 25px;
+
+				position: relative;
+				left: 3%;
+				transform: translateY(70%);
+				font-family: '华文琥珀';
+
+			}
+
+			.slide-name {
+				color: rgb(169, 166, 167);
+				position: relative;
+				font-size: 20px;
+				transform: translateX(90%) translateY(70%);
+
+			}
+
+			.progress {
+				background: rgb(74, 74, 74);
+				width: 120px;
+				height: 10px;
+				position: relative;
+				transform: translateX(80%) translateY(75px);
+				border-radius: 5px;
+			}
+
+
+			.progress-bar {
+				width: 20%;
+				height: 100%;
+				background: white;
+				border-radius: 5px;
+				position: relative;
+			}
+
+			.progress-thumb {
+				//设置浮动相对标准流,多加了一个图层
+				float: left;
+				width: 20px;
+				height: 20px;
+				background: white;
+				position: relative;
+				top: 50%;
+				left: 100%;
+				transform: translate(-50%, -50%);
+				border-radius: 50%;
+				left: 100%;
+				box-shadow: 0 0 20px 5px #0072FF;
+				cursor: pointer;
+				//通过%填充将上一个div容器填充百分百就可以联动实现,改变滑动框的位置就相对改变按钮的位置
+
+			}
+
+			.switch {
+				color: rgb(169, 166, 167);
+				position: relative;
+				font-size: 20px;
+				transform: translateX(120%) translateY(70%);
+
+			}
+
+			.switch-bg {
+				width: 80px;
+				height: 35px;
+				position: relative;
+				transform: translateY(60px) translateX(150px);
+				background: gray;
+				border-radius: 30px;
+			}
+
+			.ios-switch {
+				position: relative;
+				appearance: none;
+				cursor: pointer;
+				transition: all 100ms;
+
+			}
+
+			.ios-switch::before {
+				position: absolute;
+				content: "";
+				transition: all 300ms cubic-bezier(.45, 1, .4, 1);
+
+			}
+
+			.ios-switch::after {
+				position: absolute;
+				left: 4px;
+				border-radius: 27px;
+				transform: translateY(-50%);
+				width: 30px;
+				height: 30px;
+				background-color: #fff;
+				box-shadow: 1px 1px 5px rgba(#000, .3);
+				content: "";
+				transition: all 300ms cubic-bezier(.4, .4, .25, 1.35);
+			}
+
+			.ios-switch:checked::before {
+				transform: scale(0);
+			}
+
+			.ios-switch:checked::after {
+				transform: translateX(40px) translateY(-50%);
+			}
+
+
+			.key {
+				text-align: center;
+				width: 7vw;
+				height: 270px;
+				border: 1px solid white;
+				display: inline-block;
+				justify-content: center;
+				border-radius: 8%;
+				color: black;
+				background: rgb(237, 237, 237);
+				top: 11%;
+				left: 2%;
+				position: relative;
+				transition: transform 0.1s ease-out;
+				/* 添加过渡效果 */
+
+
+			}
+
+
+			.key.active {
+				transform: translateY(5px);
+			}
+		</style>
+
+
+	</head>
+	<body>
+
+		<div class="container">
+			<div class="main">
+				<div class="name">playable piano</div>
+				<div class="slide-name">Volume</div>
+				<div class="progress">
+					<div class="progress-bar">
+						<div class="progress-thumb"></div>
+					</div>
+				</div>
+				<div class="switch">Show Keys</div>
+				<div class="switch-bg">
+					<input type="checkbox" class="ios-switch" onchange="togglePiano()"/>
+				</div>
+			</div>
+
+			<div id="A" class="key">A</div>
+			<div id="B" class="key">B</div>
+			<div id="C" class="key">C</div>
+			<div id="D" class="key">D</div>
+			<div id="E" class="key">E</div>
+			<div id="F" class="key">F</div>
+			<div id="G" class="key">G</div>
+			<div id="H" class="key">H</div>
+			<div id="I" class="key">I</div>
+			<div id="J" class="key">J</div>
+		
+		</div>
+
+	</body>
+	<script>
+		
+		
+		var state = false
+		const togglePiano = () => {
+			state = !state
+		}
+		
+		
+		const keyList = {
+			'A': 'red',
+			'B': 'blue',
+			'C': 'yellow',
+			'D': 'green',
+			'E': 'yellow',
+			'F': 'yellow',
+			'G': 'yellow',
+			'H': 'yellow',
+			'I': 'yellow',
+			'J': 'yellow',
+		}
+		const mpaList ={
+			'A': 'mp3/1do.mp3',
+			'B': 'mp3/2re.mp3',
+			'C': 'mp3/3mi.mp3',
+			'D': 'mp3/4fa.mp3',
+			'E': 'mp3/5so.mp3',
+			'F': 'mp3/6la.mp3',
+			'G': 'mp3/7si.mp3',
+			'H': 'mp3/8do.mp3',
+			'I': 'mp3/1do.mp3',
+			'J': 'mp3/2re.mp3',
+		}
+		/*
+		钢琴键鼠标点击
+		*/
+		for (const item in keyList) {
+			//还可以设置将按键设置向内的边缘阴影，模拟按键
+			document.getElementById(item).addEventListener('click', function() {
+				if(!state) return
+				this.classList.add('active');
+				this.style.backgroundColor = keyList[item];
+				console.log(item);
+				if(audios.hasOwnProperty(item)){
+					audios[item].currenTime = 0;
+					audios[item].play();
+				}
+				setTimeout(() => {
+
+					this.style.backgroundColor = 'rgb(237,237,237)';
+					this.classList.remove('active');
+
+				}, 100); // 移除 active 类，延迟时间可以根据动画效果调整
+			});
+		}
+		/*
+		进度条
+		*/
+		var slider = () => {
+			//获取类的变量
+			//getElementsByClassName获取到的是符合调剂的元素集合
+			var progress = document.querySelector(".progress");
+			var bar = document.querySelector(".progress-bar");
+			//获取的是元素本身
+			var thumb = document.querySelector(".progress-thumb");
+			let isDragging = false;
+			let barbeginX = 0;
+			let BowserX = 0;
+			let sliderLong = progress.offsetWidth;
+			//获取鼠标点击事件
+			progress.addEventListener('mousedown', (e) => {
+
+				if (e.button == 0) {
+					isDragging = true;
+					//获得 开始相对于边缘框的位置
+					barbeginX = Math.max(0, e.clientX - progress.getBoundingClientRect().left);
+					BowserX = e.clientX;
+					document.body.style.userSelect = 'none';
+				}
+
+			});
+
+			document.addEventListener('mousemove', (e) => {
+				if (isDragging) {
+					var moveX = e.clientX - BowserX;
+					
+					var barX = (barbeginX + moveX > sliderLong) ? sliderLong : (barbeginX + moveX < 0) ? 0 :
+						barbeginX + moveX;
+					console.log(barX);
+					var per = parseInt(barX / sliderLong * 100);
+					
+					bar.style.width = per + '%';
+					var globalVolume = barX / sliderLong;
+					console.log(globalVolume);
+					Object.keys(audios).forEach(key =>{
+						audios[key].volume = globalVolume;
+						
+					})
+	
+				}
+			});
+
+
+			document.addEventListener('mouseup', (e) => {
+
+				document.body.style.userSelect = ''; // 恢复用户选择
+				isDragging = false;
+			});
+
+
+		};
+
+		slider();
+		
+		/*
+		开关键
+		*/
+		var iosSwitch = document.querySelector(".ios-switch");
+		var switchBg = document.querySelector(".switch-bg");
+		
+		iosSwitch.addEventListener("click",function(){
+			
+		})
+
+		
+		iosSwitch.addEventListener("change", function() {
+			if (this.checked) {
+				switchBg.style.background = 'rgb(100,190,99)';
+				console.log(document.getElementsByClassName('key'));
+			
+			} else {
+				switchBg.style.background = 'gray';
+				
+			}
+		});
+
+		//将音频缓存到变量中
+		const audios = {};
+		var globalVolume = 0.5;
+		Object.keys(mpaList).forEach(key => {
+			console.log(key);
+			const audio = new Audio(mpaList[key]);
+			audio.volume = globalVolume;
+			audios[key] = audio;
+
+		});
+		
+
+		
+		/*
+		键盘控制
+		*/
+		Object.keys(keyList).forEach(item => {
+			document.addEventListener('keyup', function(e) {
+				if(!state) return
+
+				let key = e.key.toUpperCase();
+				let element = document.getElementById(key);
+				if (element && item === key) {
+					element.classList.add('active');				
+					
+					element.style.backgroundColor = keyList[item];
+				
+					console.log(keyList[item]);
+					console.log(`Key: ${key}, Value: ${keyList[key]}`);
+					if(audios.hasOwnProperty(key)){
+						audios[key].currentTime = 0;
+						audios[key].play();
+					}												
+					setTimeout(() => {
+						element.style.backgroundColor = 'rgb(237,237,237)';
+						element.classList.remove('active');
+					}, 100);
+				}
+			});
+			
+			
+			// document.addEventListener('keyup',function(e){
+				
+			// })
+		});
+		
+		
+		
+	</script>
+
+</html>
